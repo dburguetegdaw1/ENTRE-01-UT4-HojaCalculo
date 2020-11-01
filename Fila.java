@@ -14,21 +14,26 @@ public class Fila
     private Fecha fecha;
     private double ingresos;
     private double gastos;
+    private double beneficio;
 
     /**
      * Constructor  
      */
-    public Fila(String id)    {
-         
-
+    public Fila(String newId){
+        this.id=newId;
+        this.fecha=new Fecha(1, 1, 2020);
+        this.ingresos=0;
+        this.gastos=0;
     }
 
     /**
      * Constructor  
      */
-    public Fila(String id, Fecha fecha, double ingresos, double gastos)    {
-        
-
+    public Fila(String newId, Fecha fecha, double ingresos, double gastos){
+        this.id=newId;
+        this.fecha=new Fecha(fecha.getDia(), fecha.getMes(), fecha.getAño());
+        this.ingresos=ingresos;
+        this.gastos=gastos;
     }
     
     /**
@@ -68,8 +73,10 @@ public class Fila
      * calcula y devuelve el beneficio
      */
     public double getBeneficio() {
+        if(this.ingresos - this.gastos < 0){
+            return this.ingresos - this.gastos;
+        }
         return this.ingresos - this.gastos;
-
     }
     
     /**
@@ -78,7 +85,7 @@ public class Fila
      * 
      */
     public Fila duplicar() {
-       return null;
+       return new Fila(this.id, this.fecha, this.ingresos, this.gastos);
 
     }
 
@@ -87,8 +94,13 @@ public class Fila
      * (leer enunciado)
      */
     public String toString() {
-      return null;
-
+        double valorIngresos = this.ingresos;
+        double valorGastos = this.gastos;   
+        beneficio=this.ingresos - this.gastos;
+        String patron = "%s%17s%15.2f€%15.2f€%15.2f€";
+        String resultado = String.format(patron, this.id, this.fecha, valorIngresos, valorGastos, beneficio);
+        return (resultado);
+        
     }
 
      
